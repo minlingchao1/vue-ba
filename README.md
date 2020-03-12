@@ -83,6 +83,8 @@ vue-ba 提供 track-event，track-pageview 两个指令，开发者可以直接�
 
 可通过逗号分隔的字符串或对象字面量传递参数，以字符串传递时请注意参数顺序，可参考trackEvent API。
 
+统计自定义事件使用 v-track-event.someEvent.custom
+
 #### 用法
 
 ```
@@ -91,6 +93,8 @@ vue-ba 提供 track-event，track-pageview 两个指令，开发者可以直接�
 <button v-track-event="'category, action'"></button> // 统计click事件简写
 
 <input v-track-event.keypress="'category, action'"> // 统计keypress事件
+
+<input v-track-event.someEvent.custom="'category, action'"> // 统计someEvent事件,someEvent是自定义事件
 
 <button v-track-event="'category, action, opt_label, opt_value'"><button> // 以字符串传递参数
 

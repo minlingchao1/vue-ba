@@ -1,7 +1,7 @@
 import ba from '../index'
 import { notChanged, isEmpty } from './utils'
 
-export default function (el, binding) {
+export default function (el, binding, vnode) {
   if (notChanged(binding) || isEmpty(binding)) {
     return
   }
@@ -26,7 +26,13 @@ export default function (el, binding) {
 
   if (!events.length) events.push('click') // default  listen click
 
-  events.forEach((event) => {
-    el.addEventListener(event, () => ba.trackEvent(...args), false)
+  events.forEach((eventValue) => {
+    const customTag = 'custom'
+    let [event, custom] = eventValue.split(':')
+    if (custom === customTag) {
+      vnode.componentInstance.$on(event, () => ba.trackEvent(...args), false)
+    } else {
+      el.addEventListener(event, () => ba.trackEvent(...args), false)
+    }
   })
 }
