@@ -32,7 +32,10 @@ export default function (el, binding, vnode) {
     if (custom === customTag) {
       vnode.componentInstance.$on(event, () => ba.trackEvent(...args), false)
     } else {
-      el.addEventListener(event, () => ba.trackEvent(...args), false)
+      let handler = function () {
+        ba.trackEvent(...args)
+      }
+      el.addEventListener(event, handler, false)
     }
   })
 }
